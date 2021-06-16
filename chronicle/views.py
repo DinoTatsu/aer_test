@@ -18,7 +18,6 @@ class ChronicleWithDaysView(generics.RetrieveAPIView):
         instance = self.get_object()
         if not instance:
             return Response(status=404, data={'error': _('Объект не найден')})
-        serializer = self.get_serializer(instance)
         return super(ChronicleWithDaysView, self).retrieve(request, *args, **kwargs)
 
 
