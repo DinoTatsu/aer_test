@@ -53,8 +53,8 @@ class Chronicle(models.Model):
         n_days_before = n_days_before if n_days_before >= self.min_timestamp else self.min_timestamp
 
         # события которые происходили в последние n дней хроники
-        events = Event.objects.filter(datetime__range=(n_days_before, self.max_timestamp)) \
-                              .annotate(date=TruncDate('datetime')) \
+        events = Event.objects.annotate(date=TruncDate('datetime')) \
+                              .filter(date__range=(n_days_before.date(), self.max_timestamp.date())) \
                               .values_list('date', flat=True)
         days = []
         current_date = n_days_before.date()

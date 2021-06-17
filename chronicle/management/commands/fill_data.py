@@ -33,11 +33,13 @@ class Command(BaseCommand):
 
     def create_events(self):
         data = [
+            {'unique_id': '440AS-924911', 'datetime': '2021-06-16T02:01:23Z', 'aircraft': '440AS'},
             {'unique_id': '440AS-924942', 'datetime': '2021-06-15T02:01:23Z', 'aircraft': '440AS'},
             {'unique_id': '440AS-924944', 'datetime': '2021-06-13T01:58:09Z', 'aircraft': '440AS'},
             {'unique_id': '440AS-924952', 'datetime': '2021-05-24T04:00:40Z', 'aircraft': '440AS'},
         ]
-        Event.objects.bulk_create([Event(**values) for values in data])
+        for values in data:
+            Event.objects.create(**values)
 
     def handle(self, *args, **options):
         if options['event']:
